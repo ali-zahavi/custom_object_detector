@@ -1,0 +1,38 @@
+# Define a build-time argument for the workspace path
+ARG CONTAINER_NAME=custom_object_detector
+
+# Use the official ubuntu image as the base image
+FROM arm64v8/ubuntu:jammy
+
+# Set the DEBIAN_FRONTEND variable to avoid prompts
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Update package information, upgrade installed packages, and install common dependencies
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y git python3-pip && \
+    pip3 install --upgrade pip
+
+# Install opencv
+RUN apt-get install -y python3-opencv
+
+# Install tensorflow
+RUN pip3 install --upgrade tensorflow
+
+# Reset the DEBIAN_FRONTEND variable
+ENV DEBIAN_FRONTEND=
+
+# Copy the project files into the container
+COPY . /${CONTAINER_NAME}
+
+# Install pip and python requirements
+RUN pip3 install -r /${CONTAINER_NAME}/requirements.txt
+
+# Not to create __pycache__
+RUN export PYTHONDONTWRITEBYTECODE=1
+
+# Set the working directory
+WORKDIR /${CONTAINER_NAME}
+
+# Define the entry point
+ENTRYPOINT [ "entrypoint.sh" ]

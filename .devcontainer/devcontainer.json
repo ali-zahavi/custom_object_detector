@@ -1,0 +1,19 @@
+{
+    "workspaceFolder": "/${localWorkspaceFolderBasename}",
+    "build": {
+        "dockerfile": "../Dockerfile"
+    },
+    "workspaceMount": "source=${localWorkspaceFolder},target=${containerWorkspaceFolder},type=bind,consistency=cached",
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.shell.linux": "/bin/bash"
+            },
+            "extensions": [
+                "ms-python.python",
+                "eamodio.gitlens"
+            ]
+        }
+    },
+    "postCreateCommand": ""
+}
