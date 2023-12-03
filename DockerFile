@@ -6,6 +6,7 @@ FROM arm64v8/ubuntu:jammy
 
 # Set the DEBIAN_FRONTEND variable to avoid prompts
 ENV DEBIAN_FRONTEND=noninteractive
+ENV PYTHONDONTWRITEBYTECODE 1
 
 # Update package information, upgrade installed packages, and install common dependencies
 RUN apt-get update && \
@@ -27,9 +28,6 @@ COPY . /${CONTAINER_NAME}
 
 # Install pip and python requirements
 RUN pip3 install -r /${CONTAINER_NAME}/requirements.txt
-
-# Not to create __pycache__
-RUN export PYTHONDONTWRITEBYTECODE=1
 
 # Set the working directory
 WORKDIR /${CONTAINER_NAME}
