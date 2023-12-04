@@ -6,7 +6,6 @@ logger = logging.getLogger(__name__)
 
 class WebcamCapture(InputStream):
     def __init__(self):
-        super().__init__("webcam")
         self.cap = None
 
     def check_input_source_exists(self):

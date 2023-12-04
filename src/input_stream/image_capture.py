@@ -1,22 +1,20 @@
 import os
 import cv2
 from src.input_stream import InputStream
-from config.PATH import INPUT_STREAM_IMAGES_PATH
 import logging
 
 logger = logging.getLogger(__name__)
 
 class ImageCapture(InputStream):
-    def __init__(self):
-        super().__init__("images")
-        self.image_directory = INPUT_STREAM_IMAGES_PATH
-        self.image_files = [os.path.join(self.image_directory, f) for f in os.listdir(self.image_directory) if f.lower().endswith(('.png', '.jpg', '.jpeg'))]
+    def __init__(self, images_path):
+        self.images_path = images_path
+        self.image_files = [os.path.join(self.images_path, f) for f in os.listdir(self.images_path) if f.lower().endswith(('.png', '.jpg', '.jpeg'))]
         self.image_files.sort()
 
     def check_input_source_exists(self):
         if not self.image_files:
-            logger.error(f"No images found in {self.image_directory}")
-            raise FileNotFoundError(f"No images found in {self.image_directory}")
+            logger.error(f"No images found in {self.images_path}")
+            raise FileNotFoundError(f"No images found in {self.images_path}")
 
     def open(self):
         pass

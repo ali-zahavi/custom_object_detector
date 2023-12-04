@@ -1,16 +1,14 @@
 import os
 import cv2
 from src.input_stream import InputStream
-from config.PATH import INPUT_STREAM_VIDEO_PATH
 import logging
 
 logger = logging.getLogger(__name__)
 
 
 class VideoCapture(InputStream):
-    def __init__(self):
-        super().__init__("video")
-        self.video_path = INPUT_STREAM_VIDEO_PATH
+    def __init__(self, video_path):
+        self.video_path = video_path
         self.video_files = [os.path.join(self.video_path, f) for f in os.listdir(self.video_path) if f.lower().endswith(('.mp4', '.mkv'))]
         self.video_files.sort()
         self.cap = None
