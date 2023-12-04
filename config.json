@@ -1,0 +1,12 @@
+{
+    "input_stream_config":{
+        "video_path":"data/input_stream/video",
+        "images_path":"data/input_stream/images"
+    },
+    "object_detector_config":{
+        "model_path":"https://tfhub.dev/tensorflow/efficientdet/lite4/detection/1" ,
+        "selected_classes":[3, 4, 8],
+        "score_threshold":0.5
+    }
+
+}
