@@ -1,0 +1,4 @@
+pillow
+tensorflow_hub
+matplotlib
+dataclasses-json
