@@ -4,7 +4,7 @@ import random
 
 class Visualization:
     def __init__(self,class_map) -> None:
-        random.seed(10)
+        random.seed(100)
         self.class_map = class_map
         self.color_map = {_key: self.generate_distinct_rgb_color() for _key in self.class_map}
     
