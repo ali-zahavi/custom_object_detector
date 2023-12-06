@@ -1,10 +1,11 @@
 import argparse
-from src.input_stream import InputStream, ImageCapture, VideoCapture, WebcamCapture
-from src.visualization import display_frame
+from src.input_stream import ImageCapture, VideoCapture, WebcamCapture
+from src.visualization import Visualization
 from src.object_detection import ObjectDetector
 import cv2
 import numpy as np
 from src.config_handler import AppConfig
+# from src.config_handler.ClassMapping import class_mapping
 import json
 
 
@@ -24,6 +25,8 @@ def parse_arguments():
 def main():
     # Parse command-line arguments
     args = parse_arguments()
+    
+    # Read app_config
     with open('config.json', 'r') as f:
         app_config = json.load(f)
     app_config = AppConfig.from_dict(app_config)
@@ -36,10 +39,14 @@ def main():
     elif args.source_type == "webcam":
         input_stream = WebcamCapture()
     else:
-        raise ValueError(f"Invalid source type: {args.source_type}")    
-    
+        raise ValueError(f"Invalid source type: {args.source_type}")
+
+
     # create object detector
     object_detector = ObjectDetector(object_detector_config=app_config.object_detector_config)
+
+    # create visualizer
+    visualizer = Visualization(class_map=app_config.object_detector_config.class_map)
     
     input_stream.check_input_source_exists()
     input_stream.open()
@@ -48,9 +55,8 @@ def main():
         frame = input_stream.read_frame()
 
         if frame is not None:
-            # Perform object detection on the frame
             detections = object_detector.detect_objects(frame)
-            display_frame(frame, detections)
+            visualizer.display_bboxes(frame, detections)
 
         key = cv2.waitKey(1) & 0xFF
 
