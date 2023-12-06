@@ -44,31 +44,13 @@ def main():
     input_stream.check_input_source_exists()
     input_stream.open()
 
-    # frame_no = 0
-    # old_detection = np.array([None])
-    # detection_no = 0
     while True:
         frame = input_stream.read_frame()
 
         if frame is not None:
             # Perform object detection on the frame
             detections = object_detector.detect_objects(frame)
-            # if not np.all(detections['detection_boxes'] == old_detection):
-            #     detection_no +=1
-            #     print('############################')
-            #     print(f'detection_no = {detection_no}')
-            #     print(detections)
-            #     print('############################')
-            #     old_detection = detections
-            # # Display the frame with object detection results
-            # frame_no +=1
-            # print(frame_no)
             display_frame(frame, detections)
-            
-            # image_with_boxes = draw_boxes(
-            # frame, detections)
-
-            # display_image(image_with_boxes)
 
         key = cv2.waitKey(1) & 0xFF
 
@@ -79,11 +61,6 @@ def main():
     input_stream.release()
     cv2.destroyAllWindows()
     
-    # Visualize the input stream
-    # visualize_input_stream(input_stream, object_detector)
-
-    # Release the input stream
-    input_stream.release()
 
 if __name__ == "__main__":
     main()
