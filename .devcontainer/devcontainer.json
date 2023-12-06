@@ -16,5 +16,5 @@
             ]
         }
     },
-    "postCreateCommand": ""
+    "postCreateCommand": "echo 'source .env || true' >> ~/.bashrc"
 }
