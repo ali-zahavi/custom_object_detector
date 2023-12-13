@@ -5,6 +5,7 @@
     },
     "runArgs": ["--memory=4g", "--cpus=4"],
     "workspaceMount": "source=${localWorkspaceFolder},target=${containerWorkspaceFolder},type=bind,consistency=cached",
+    "forwardPorts": [8080],
     "customizations": {
         "vscode": {
             "settings": {
