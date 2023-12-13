@@ -17,5 +17,5 @@
             ]
         }
     },
-    "postCreateCommand": "echo 'source .env || true' >> ~/.bashrc"
+    "postCreateCommand": "bash ./entrypoint.sh"
 }
